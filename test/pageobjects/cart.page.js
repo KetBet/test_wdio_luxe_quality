@@ -1,0 +1,55 @@
+const { $ } = require('@wdio/globals')
+const Page = require('./page');
+
+/**
+ * sub page containing specific selectors and methods for a specific page
+ */
+class CartPage extends Page {
+  /**
+   * define selectors using getter methods
+   */
+  get itemInCart() {
+    return $("//*[text()='Sauce Labs Backpack']");
+  }
+
+  get checkoutButton() {
+    return $("#checkout");
+  }
+
+  clickCheckoutButton() {
+    this.checkoutButton.click();
+  }
+
+  get inputFirstName() {
+    return $("#first-name");
+  }
+
+  get inputLastName() {
+    return $("#last-name");
+  }
+
+  get inputZipCode() {
+    return $("#postal-code");
+  }
+
+  get continueButton() {
+    return $("#continue");
+  }
+
+  async checkout(firstname, lastname, zipcode) {
+    await this.inputFirstName.setValue(firstname);
+    await this.inputLastName.setValue(lastname);
+    await this.inputZipCode.setValue(zipcode);
+    await this.continueButton.click();
+  }
+
+  get removeButton() {
+    return $("#remove-sauce-labs-backpack");
+  }
+
+  clickRemoveButton() {
+    this.removeButton.click();
+  }
+}
+
+module.exports = new CartPage();
